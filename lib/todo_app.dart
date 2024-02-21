@@ -11,7 +11,9 @@ class TodoApp extends StatelessWidget {
 
   // todoModel'de oluşturduğumuz verileri for döngüsü ile gezmek için kullanacağız
   final List<TodoModel> _allTodos = [
-    TodoModel(id: Uuid().v4(), description: "spora git")
+    TodoModel(id: const Uuid().v4(), description: "spora git"),
+    TodoModel(id: const Uuid().v4(), description: "alışveriş yap"),
+    TodoModel(id: const Uuid().v4(), description: "yemek hazırla"),
   ];
 
   @override
@@ -24,21 +26,26 @@ class TodoApp extends StatelessWidget {
             const TitleWidget(),
             TextField(
               // text field'a yazılan verileri almak için controller yazmamız gerekli, texteditingcontroller ile alacağız
-        
-              decoration: const InputDecoration(
-                hintText: "bugün neler yapacaksın ?"
-              ),
+
+              decoration:
+                  const InputDecoration(hintText: "bugün neler yapacaksın ?"),
               controller: newTodoController,
               onSubmitted: (newtodo) {
                 print("şunu ekle $newtodo");
               },
             ),
-            
-            const SizedBox(height: 20,),
-
+            const SizedBox(
+              height: 20,
+            ),
             const ToolBarWidget(),
-
-            const TodoListItemWidget()
+            for (int i = 0; i < _allTodos.length; i++)
+              Dismissible(
+                  key: ValueKey(_allTodos[i].id),
+                  child: TodoListItemWidget(item: _allTodos[i]),
+                  onDismissed: (direction) {
+                    
+                  },
+                ),
           ],
         ),
       ),
