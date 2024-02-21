@@ -6,7 +6,7 @@ class TodoListManager extends StateNotifier<List<TodoModel>> {
   // liste initialTodos diye bir değişkenle başlasın - eğer başlamazsa boş bir liste ile başlasın
   TodoListManager([List<TodoModel>? initialTodos]) : super(initialTodos ?? []);
 
-  void eklenecekTodo(String description) {
+  void addTodo(String description) {
     var eklenecekTodo =
         TodoModel(id: const Uuid().v4(), description: description);
 
@@ -47,5 +47,10 @@ class TodoListManager extends StateNotifier<List<TodoModel>> {
     // yeni listeye ekliyor ama id'si eşitse onu dahil etmiyor.
     // id'si aynı olmayanları yeni oluşan listeye yolla demek bu, id'si aynı olanları alma diyor.
     state = state.where((element) => element.id != silinecekTodo.id).toList();
+  }
+
+
+  int onCompletedTodoCount(){
+    return state.where((element) => !element.completed).length;
   }
 }
