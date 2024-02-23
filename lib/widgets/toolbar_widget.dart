@@ -7,11 +7,13 @@ class ToolBarWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    int onCompletedTodoCount = ref
+    
+    /* int onCompletedTodoCount = ref
         .watch(todoListProvider)
         .where((element) => !element.completed)
-        .length;
+        .length; */       // bu kodlar yerine riverpod ile aşağıdaki gibi yazabiliyoruz.
 
+    final onCompletedTodoCount = ref.watch(unCompletedTodoCount);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

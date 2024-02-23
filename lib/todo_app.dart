@@ -48,10 +48,18 @@ class TodoApp extends ConsumerWidget {
             for (int i = 0; i < allTodos.length; i++)
               Dismissible(
                   key: ValueKey(allTodos[i].id),
-                  child: TodoListItemWidget(item: allTodos[i]),
+
                   onDismissed: (_) {
                     ref.read(todoListProvider.notifier).remove(allTodos[i]);
                   },
+
+                  // ProviderScop, bütün providerlara eriş anlamına gelmektedir.
+                  child: ProviderScope(
+                    overrides: [
+                      currentTodo.overrideWithValue(allTodos[i])
+                    ],
+                    child: TodoListItemWidget()),
+                  
                 ),
           ],
         ),

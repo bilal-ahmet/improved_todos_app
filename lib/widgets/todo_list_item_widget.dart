@@ -4,9 +4,7 @@ import 'package:todos_app_riverpod/models/todo_model.dart';
 import 'package:todos_app_riverpod/provider/all_providers.dart';
 
 class TodoListItemWidget extends ConsumerStatefulWidget {
-
-  TodoModel item;
-  TodoListItemWidget({required this.item, super.key});
+  TodoListItemWidget({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _TodoListItemWidgetState();
@@ -37,6 +35,8 @@ class _TodoListItemWidgetState extends ConsumerState<TodoListItemWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final currentTodoItem = ref.watch(currentTodo);
+
     return Focus(
       onFocusChange: (isFocused) {
         if(!isFocused){
@@ -44,7 +44,7 @@ class _TodoListItemWidgetState extends ConsumerState<TodoListItemWidget> {
             _hasFocus = false;
           });
 
-          ref.read(todoListProvider.notifier).edit(id: widget.item.id, newDescription: _textController.text);
+          ref.read(todoListProvider.notifier).edit(id: currentTodoItem.id, newDescription: _textController.text);
         }
 
       },
@@ -53,18 +53,18 @@ class _TodoListItemWidgetState extends ConsumerState<TodoListItemWidget> {
           setState(() {
             _hasFocus = true;
             _textFocusNode.requestFocus();
-            _textController.text = widget.item.description;
+            _textController.text = currentTodoItem.description;
           });
 
           
         },
         leading: Checkbox(
-          value: widget.item.completed,
+          value: currentTodoItem.completed,
           onChanged: (value) {
-            ref.read(todoListProvider.notifier).toggle(widget.item.id);
+            ref.read(todoListProvider.notifier).toggle(currentTodoItem.id);
           },
         ),
-        title: _hasFocus ? TextField(controller: _textController, focusNode: _textFocusNode,) : Text(widget.item.description),
+        title: _hasFocus ? TextField(controller: _textController, focusNode: _textFocusNode,) : Text(currentTodoItem.description),
       ),
     );
   }

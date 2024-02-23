@@ -14,3 +14,15 @@ final todoListProvider =  StateNotifierProvider<TodoListManager, List<TodoModel>
     ]
   );
 });
+
+
+final unCompletedTodoCount = Provider<int>((ref){
+  final allTodo = ref.watch(todoListProvider);
+  final count = allTodo.where((element) => !element.completed).length;
+  return count;
+});
+
+
+final currentTodo = Provider<TodoModel>((ref){
+  throw UnimplementedError();
+});
