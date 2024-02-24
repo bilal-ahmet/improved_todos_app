@@ -14,7 +14,7 @@ class TodoApp extends ConsumerWidget {
 
   /*
   // todoModel'de oluşturduğumuz verileri for döngüsü ile gezmek için kullanacağız. TodoListManager'da StateNotifier kullandığımız
-  // için bu bölüme gerek kalmadı bundan sonra state managemtn vaktidir.
+  // için bu bölüme gerek kalmadı bundan sonra state management vaktidir.
   final List<TodoModel> _allTodos = [
     TodoModel(id: const Uuid().v4(), description: "spora git"),
     TodoModel(id: const Uuid().v4(), description: "alışveriş yap"),
@@ -24,7 +24,7 @@ class TodoApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var allTodos = ref.watch(todoListProvider);
+    var allTodos = ref.watch(filtredTodoList);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
@@ -44,7 +44,8 @@ class TodoApp extends ConsumerWidget {
             const SizedBox(
               height: 20,
             ),
-            const ToolBarWidget(),
+            ToolBarWidget(),
+            allTodos.isEmpty ? const Center(child: Text("bu koşullarda görev yok")) : const SizedBox(),
             for (int i = 0; i < allTodos.length; i++)
               Dismissible(
                   key: ValueKey(allTodos[i].id),
@@ -58,7 +59,7 @@ class TodoApp extends ConsumerWidget {
                     overrides: [
                       currentTodo.overrideWithValue(allTodos[i])
                     ],
-                    child: TodoListItemWidget()),
+                    child: const TodoListItemWidget()),
                   
                 ),
           ],

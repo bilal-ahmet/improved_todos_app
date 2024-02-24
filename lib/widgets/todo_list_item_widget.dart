@@ -4,7 +4,7 @@ import 'package:todos_app_riverpod/models/todo_model.dart';
 import 'package:todos_app_riverpod/provider/all_providers.dart';
 
 class TodoListItemWidget extends ConsumerStatefulWidget {
-  TodoListItemWidget({super.key});
+  const TodoListItemWidget({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _TodoListItemWidgetState();
