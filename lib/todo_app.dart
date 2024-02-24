@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todos_app_riverpod/models/todo_model.dart';
 import 'package:todos_app_riverpod/provider/all_providers.dart';
 import 'package:todos_app_riverpod/provider/todos_list_manager.dart';
+import 'package:todos_app_riverpod/widgets/future_provider.dart';
 import 'package:todos_app_riverpod/widgets/title_widget.dart';
 import 'package:todos_app_riverpod/widgets/todo_list_item_widget.dart';
 import 'package:todos_app_riverpod/widgets/toolbar_widget.dart';
@@ -62,6 +63,10 @@ class TodoApp extends ConsumerWidget {
                     child: const TodoListItemWidget()),
                   
                 ),
+
+                ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Colors.orange.shade200), onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const FutureProviderExample(),));
+                }, child: const Text("future provider"))
           ],
         ),
       ),
